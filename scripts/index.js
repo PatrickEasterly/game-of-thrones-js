@@ -82,17 +82,65 @@ function hotPie(names) {
 // if they aren't in the show, "tvSeries" == [""];
 
 function isNotInShow(name) {
-    return name["tvSeries"] == [""];
+    return name.tvSeries[0] == "";
 }
 // console.log(isNotInShow(characters[0]))
 
-// or
-// const notInShow = (name) => name.tvSeries == [""];
-// console.log(notInShow(characters[0]))
-
 // check errybody
 function countIsNotInShow(names) {
-    names = names.map(isNotInShow);
-    return names;
+    names = names.map(isNotInShow).filter(e=x=> x == true);
+    return names.length;
 }
-console.log(countIsNotInShow(characters));
+// console.log(countIsNotInShow(characters));
+
+///     Produce an array of character objects for any character with the last name "Targaryen"
+
+// has Targaryen
+function isTargaryen(name) {
+    return name["name"].includes("Targaryen");
+}
+// isTargaryen(characters[31]) // true
+
+function tarray(names) {
+    let tarray = [];
+    // for(let character in names) {
+    //     if(character[])
+    // }
+    names = names.filter(isTargaryen);
+    // console.log(names.filter(isTargaryen))
+    names.map(e=x=>tarray.push(x))
+    return tarray;
+}
+const justTargaryens = tarray(characters);
+// console.log(justTargaryens)
+
+///     Characters loyal to each house 
+
+const result = {};
+
+function allegiances(characters) {
+
+    for(let item of characters) {
+
+        // console.log(item.allegiances)
+            if(item.allegiances[0] != undefined) {
+                const houseName = item.allegiances[0].split("/houses/")[1];
+                
+                if(result[houseName]) {
+                    // if it exists, add one to the count
+                    let currentVal = result[houseName];
+                    console.log(currentVal);
+                    let newVal = currentVal + 1;
+                    console.log(`new: ${newVal}`);
+                    result[houseName] = newVal;
+
+                } 
+                else {
+                    // if it doesn't, make it
+                    result[houseName] = 1;
+                }
+            }
+        }
+    return result;
+}
+
